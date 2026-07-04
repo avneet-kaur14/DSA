@@ -1,5 +1,6 @@
 #include <iostream>
-#include <climits>
+#include <climits> //for INT_MAX INT_MIN
+#include <algorithm> //for SORT()
 using namespace std;
 
 //SUBARRAYS-O(n^3)
@@ -136,3 +137,94 @@ int trap(int heights[],int n){
 // }
 
 //ASSIGNMENT QUESTIONS 
+//Question1:Given an integer array nums,return true if any value appears at least twice in the array,and return false if every element is distinct.
+bool duplicate(int arr[],int n){  //O(n^2)
+    for(int i=1;i<n;i++){
+        for(int j=0;j<i;j++){
+            if(arr[j]==arr[i]){
+                return true;
+            }
+        }
+    }
+    return false;
+}
+//MORE OPTIMIZED O(n log n)-SORTING THEN COMPARING ADJACENT
+bool duplicate2(int arr[],int n){  
+    sort(arr,arr+n);
+    for(int i=1;i<n;i++){
+        if(arr[i]==arr[i-1]){
+            return true;
+        }
+    }
+    
+    return false;
+}
+// int main(){
+//     int arr[]={1,1,1,3,3,4,3,2,4,2};
+//     int arr2[]={1,2,3,4,5};
+//     int n=sizeof(arr)/sizeof(int);
+//     cout<<duplicate(arr,n)<<endl;
+//     cout<<duplicate(arr2,5)<<endl;
+
+//     cout<<duplicate2(arr,n)<<endl;
+//     cout<<duplicate2(arr2,5);
+// }
+
+//SEARCH IN ROTATED SORTED ARRAY-(1 ROTATION-(WHICH MEANS ONE HALF IS ALWAYS SORTED) AND NO DUPLICATES)
+
+int search(int arr[],int n,int target){
+    int st=0,end=n-1;
+    int idx=-1;
+    while(st<=end){
+        int mid=st+(end-st)/2;
+        if(target==arr[mid]){
+            idx=mid;
+        }
+
+        if(arr[st]<=arr[mid]){ //if left half is sorted
+            if(target>=arr[st] && target<arr[mid]){ //if target is in left half
+                end=mid-1;
+            }else{
+                st=mid+1;
+            }
+        }else{ //right half is sorted
+            if(target<=arr[end] && target>arr[mid]){ //if target is in right half
+                st=mid+1;
+            }else{
+                end=mid-1;
+            }
+        } 
+    }
+    return idx;
+}
+// int main(){
+//     int nums[] = {4,5,6,7,0,1,2};
+//     int n = sizeof(nums) / sizeof(nums[0]);
+
+//     cout << search(nums, n, 0);
+
+//     return 0;
+// }
+
+//largest product subarray
+
+int pr(int arr[],int n){
+    int maxPr=INT_MIN;
+    int currPr=1;
+    for(int i=0;i<n;i++){
+        currPr*=arr[i];
+        maxPr=max(maxPr,currPr);
+        if(currPr<=0){
+            currPr=1;
+        }
+    }
+    return maxPr;
+}
+
+int main(){
+    int arr[]={2,3,-2,4};
+    int arr2[]={-2,0,-1};
+    int n=4;
+    cout<<pr(arr,n)<<endl;
+    cout<<pr(arr2,3);
+}
