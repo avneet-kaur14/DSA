@@ -32,7 +32,7 @@ void selectionSort(int arr[],int n){
 }
 
 //useful for nearly sorted arrays and online sorting-******** best case TC:O(n)
-void insertionSort(int arr[],int n){ //pick el from unsorted part and place it correctly in sorted part
+void insertionSort(int arr[],int n){ //pick el from unsorted part and place it correctly in sorted part //playing cards
 //O(n^2)
     for(int i=1;i<n;i++){
         int curr=arr[i];
