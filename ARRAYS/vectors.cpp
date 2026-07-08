@@ -2,7 +2,7 @@
 #include <vector>
 using namespace std;
 
-//pairSum(given vector is sorted in asc order)
+//pairSum(given vector is sorted in asc order) - (somewhat binary search logic)
 
 vector<int> pairSum(vector<int> v,int target){
     int st=0,end=v.size()-1;
