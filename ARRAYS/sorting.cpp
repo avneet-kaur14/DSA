@@ -1,4 +1,5 @@
 #include <iostream>
+#include <vector>
 using namespace std;
 
 void bubbleSort(int arr[],int n){  //large els come to end by swapping adjacents
@@ -49,34 +50,111 @@ void insertionSort(int arr[],int n){ //pick el from unsorted part and place it c
 
 //⭐non-comparing algorithm
 //preferred when The range of values is small compared to the number of elements  
-void countingSort(int arr[],int n){ //it counts how many times each value appears, then reconstructs the sorted array using those counts.
-//O(n+k)   
-    int minVal=INT_MAX,maxVal=INT_MIN;
-    int freq[1000]={0};
+// void countingSort(int arr[],int n){ //it counts how many times each value appears, then reconstructs the sorted array using those counts.
+// //O(n+k)   
+//     int minVal=INT_MAX,
+//     int maxVal=INT_MIN;
+//     int freq[1000]={0};
 
-    for(int i=0;i<n;i++){  //O(n)
-        freq[arr[i]]++;
-        minVal=min(arr[i],minVal);
-        maxVal=max(arr[i],maxVal);
-    }
+//     for(int i=0;i<n;i++){  //O(n)
+//         freq[arr[i]]++;
+//         minVal=min(arr[i],minVal);
+//         maxVal=max(arr[i],maxVal);
+//     }
 
-    for(int i=minVal,j=0;i<=maxVal;i++){  //O(range) range=max-min
-        while(freq[i]>0){
-            arr[j++]=i;
-            freq[i]--;
-        }
-    }
+//     for(int i=minVal,j=0;i<=maxVal;i++){  //O(range) range=max-min
+//         while(freq[i]>0){
+//             arr[j++]=i;
+//             freq[i]--;
+//         }
+//     }
     
-}
+// }
 
 //INBUILT
 //sort(arr,arr+n);
 //sort(arr,arr+n,greater<int>())
 
 
+
+//MERGE SORT(DIVIDE AND CONQUES APPROACH)-TC: O(n*log n) SC:O(n)
+
+void merge(int arr[],int st,int mid,int end){ //conquer-O(n)
+
+    vector<int>temp;
+    int i=st;
+    int j=mid+1;
+
+    while(i<=mid && j<=end){
+        if(arr[i]<=arr[j]){
+            temp.push_back(arr[i++]);
+        }else{
+            temp.push_back(arr[j++]);
+        }
+    }
+
+    while(i<=mid){
+        temp.push_back(arr[i++]);
+    }
+    while(j<=end){      
+        temp.push_back(arr[j++]);
+    }
+
+    for(int i=st,x=0;i<=end;i++){
+        arr[i]=temp[x++];
+    }
+}
+
+
+void sort(int arr[],int st,int end){  //divide - O(log n)
+        if(st>=end){
+        return;
+    }
+    int mid=st+(end-st)/2;
+    sort(arr,st,mid);
+    sort(arr,mid+1,end);
+
+    merge(arr,st,mid,end);
+}
+
+
+void print(int nums[],int n){
+    for(int i=0;i<n;i++){
+        cout<<nums[i]<<" ";
+    }
+}
+
+
+//QUICK SORT-PIVOT AND PARTITION APPROACH TC:O(n*log n)[worst case tc:O(n^2) occurs when smalest/largest el becomes the pivot repeatedly eg:in already sorted arr] SC:O(1) 
+
+int partition(int arr[],int si,int ei){
+    int i=si-1;
+    int pivot=arr[ei];
+    for(int j=si;j<ei;j++){
+        if(arr[j]<=pivot){
+            // i++;
+            swap(arr[++i],arr[j]);
+        }
+    }
+
+    swap(arr[++i],arr[ei]);
+
+    return i;  //pivot idx
+}
+void quickSort(int arr[],int si,int ei){
+    if(si>=ei){
+        return;
+    }
+    int pivotIdx=partition(arr,si,ei);
+
+    quickSort(arr,si,pivotIdx-1);
+    quickSort(arr,pivotIdx+1,ei);
+
+}
+
 int main(){
     int arr[5]={11,67,45,23,89};
-    insertionSort(arr,5);
+    quickSort(arr,0,4);
     for(int i=0;i<5;i++){
         cout<<arr[i]<<" ";
     }
