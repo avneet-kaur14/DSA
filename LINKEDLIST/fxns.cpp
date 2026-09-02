@@ -167,6 +167,23 @@ public:
     void recSearch(int key){
         cout<<helper(head,key)<<endl;
     }
+    int size(){
+        Node* temp=head;
+        int sz=0;
+        while(temp!=NULL){
+            temp=temp->next;
+            sz++;
+        }
+        return sz;
+    }
+    void removeNth(int n){
+        Node* prev=head;
+        int sz=size();
+        for(int i=1;i<(sz-n);i++){ //at the end i will be = prev
+            prev=prev->next;
+        }
+        prev->next=prev->next->next;
+    }
 
     void reverse(){
         Node* curr=head;
@@ -191,11 +208,14 @@ int main(){
     l.push_front(3);
     l.push_front(2);
     l.push_front(1);
+    l.push_back(4);
     l.push_back(5);
+
     l.print();
-    l.reverse();
+    // l.reverse();
     // l.recSearch(3);
     // l.insert(4,3);
+    l.removeNth(3);
     l.print();
     // cout<<l.itrSearch(5)<<endl;
     return 0;
