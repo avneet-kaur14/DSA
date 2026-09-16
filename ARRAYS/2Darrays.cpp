@@ -87,7 +87,7 @@ int diagnolSum(int arr[][3],int n){
                             //other two are brute force and binary search either column wise or row-wise!
 //O(n+m)
 bool search(int arr[][4],int n,int m,int key){
-    int r,c;
+
     int i=n-1,j=0;
 
     while(i>=0 && j<m){

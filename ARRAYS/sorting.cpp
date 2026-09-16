@@ -47,29 +47,29 @@ void insertionSort(int arr[],int n){ //pick el from unsorted part and place it c
     }
 }
 
-
 //⭐non-comparing algorithm
 //preferred when The range of values is small compared to the number of elements  
-// void countingSort(int arr[],int n){ //it counts how many times each value appears, then reconstructs the sorted array using those counts.
+void countingSort(int arr[],int n){ //it counts how many times each value appears, then reconstructs the sorted array using those counts.
 // //O(n+k)   
-//     int minVal=INT_MAX,
-//     int maxVal=INT_MIN;
-//     int freq[1000]={0};
+    int minVal=INT_MAX,
+    int maxVal=INT_MIN;
+    int freq[1000]={0};
 
-//     for(int i=0;i<n;i++){  //O(n)
-//         freq[arr[i]]++;
-//         minVal=min(arr[i],minVal);
-//         maxVal=max(arr[i],maxVal);
-//     }
-
-//     for(int i=minVal,j=0;i<=maxVal;i++){  //O(range) range=max-min
-//         while(freq[i]>0){
-//             arr[j++]=i;
-//             freq[i]--;
-//         }
-//     }
+    for(int i=0;i<n;i++){  //O(n)
+        freq[arr[i]]++;
+        minVal=min(arr[i],minVal);
+        maxVal=max(arr[i],maxVal);
+    }
     
-// }
+    for(int i=minVal,j=0;i<=maxVal;i++){  //O(range) range=max-min
+        while(freq[i]>0){
+            arr[j++]=i;
+            freq[i]--;
+        }
+    }
+    
+}
+
 
 //INBUILT
 //sort(arr,arr+n);
@@ -77,7 +77,7 @@ void insertionSort(int arr[],int n){ //pick el from unsorted part and place it c
 
 
 
-//MERGE SORT(DIVIDE AND CONQUES APPROACH)-TC: O(n*log n) SC:O(n)
+//MERGE SORT(DIVIDE AND CONQUER APPROACH)-TC: O(n*log n) SC:O(n)
 
 void merge(int arr[],int st,int mid,int end){ //conquer-O(n)
 

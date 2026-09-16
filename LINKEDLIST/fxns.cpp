@@ -22,12 +22,14 @@ class Node{
 };
 
 class LList{
+public:
     Node* head;
     Node* tail;
-public:
+
     LList(){
         head=NULL;
-        tail=NULL;
+        // tail=NULL;
+        tail->next=head;
     }
 
     //A destructor is automatically called when an object is about to be destroyed.
@@ -150,6 +152,7 @@ public:
         return -1;
     }
 
+    //rec search
     int helper(Node* h,int key){
         if(h==NULL){
             return -1;
@@ -167,6 +170,9 @@ public:
     void recSearch(int key){
         cout<<helper(head,key)<<endl;
     }
+
+
+
     int size(){
         Node* temp=head;
         int sz=0;
@@ -197,11 +203,32 @@ public:
             prev=curr;
             curr=next;
         }
-        //at end of loop-prev=head
+        //at end of loop:-prev=head
         head=prev;
     }
 };
 
+// int main(){
+//     LList l;
+
+//     l.push_front(3);
+//     l.push_front(2);
+//     l.push_front(1);
+//     l.push_back(4);
+//     l.push_back(5);
+
+//     l.print();
+//     // l.reverse();
+//     // l.recSearch(3);
+//     // l.insert(4,3);
+//     l.removeNth(3);
+//     l.print();
+//     // cout<<l.itrSearch(5)<<endl;
+//     return 0;
+//     //Technically, local objects are destroyed when their scope ends; return 0 causes the end of main and then ll is destroyed.(call of destructor)
+// }
+
+//circular ll tail points to head
 int main(){
     LList l;
 
@@ -210,14 +237,4 @@ int main(){
     l.push_front(1);
     l.push_back(4);
     l.push_back(5);
-
-    l.print();
-    // l.reverse();
-    // l.recSearch(3);
-    // l.insert(4,3);
-    l.removeNth(3);
-    l.print();
-    // cout<<l.itrSearch(5)<<endl;
-    return 0;
-    //Technically, local objects are destroyed when their scope ends; return 0 causes the end of main and then ll is destroyed.(call of destructor)
 }
