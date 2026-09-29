@@ -10,7 +10,7 @@ class Node{
         data=vaL;
         next=NULL;
     }
-    //~Node called when a node is deleted
+    //destructor called when a node is deleted
     ~Node() {  //propagates the deletion ()
         // cout << "--Node " << data << endl;
 
@@ -191,7 +191,7 @@ public:
         prev->next=prev->next->next;
     }
 
-    void reverse(){
+    Node* reverse(Node* head){
         Node* curr=head;
         Node* prev=NULL;
 
@@ -205,6 +205,66 @@ public:
         }
         //at end of loop:-prev=head
         head=prev;
+        return head;
+    }
+
+    Node* splitAtmiddle(Node* head){
+        Node* slow=head;
+        Node* fast=head;
+        Node* prev=NULL;
+        while(fast!=NULL || fast->next!=NULL){
+            prev=slow;
+            slow=slow->next;
+            fast=fast->next->next;
+        }
+        prev->next=NULL;
+        return slow;
+    }
+
+    Node* zigzagMerge(Node* head){
+        Node* i=head;
+        Node* rh=splitAtmiddle(head);
+        Node* j=reverse(rh);
+        Node* tail=NULL;
+        while(i!=NULL || j!=NULL){
+            Node* in=i->next;
+            Node* jn=j->next;
+
+            i->next=j;
+            j->next=in;
+            tail=j;
+
+            i=in;
+            j=jn;
+        }
+
+        if(j!=NULL){
+            tail->next=j;
+        }
+    }
+    
+
+    Node* swapPairs(Node* head){
+        Node* first=head;
+        Node* sec=head->next;
+        Node* prev=NULL;
+        while(first!=NULL && sec!=NULL){
+            Node* third=sec->next;
+            sec->next=first;
+            first->next=third;
+            if(prev==NULL){
+                head=sec;
+            }else{
+                prev->next=sec;
+            }
+            prev=first;
+            first=third;
+            if(third!=nullptr){
+                sec=third->next;
+            }else{
+                sec=NULL;
+            }
+        }
     }
 };
 
