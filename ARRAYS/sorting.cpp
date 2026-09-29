@@ -38,7 +38,7 @@ void insertionSort(int arr[],int n){ //pick el from unsorted part and place it c
     for(int i=1;i<n;i++){
         int curr=arr[i];
         int prev=i-1;
-        while(prev>=0 && arr[prev] < curr){  // < is for descending order
+        while(prev>=0 && arr[prev] > curr){  // < is for descending order
             // swap(arr[prev],arr[prev+1]);
             arr[prev+1]=arr[prev]; //shifting is better than swapping
             prev--;
